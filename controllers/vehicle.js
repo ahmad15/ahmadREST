@@ -24,7 +24,7 @@ exports.new = function (req, res) {
     // save the vehicle and check for errors
     Vehicle.create(data)
 		.then(vehicle => {
-			res.json({
+			res.status(201).json({
                 message: 'New vehicle created!',
                 data: vehicle
             });

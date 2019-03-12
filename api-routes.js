@@ -30,7 +30,7 @@ router.route('/vehicles/:vehicle_id')
     .put(middleware.checkToken, vehicle.update)
     .delete(middleware.checkToken, vehicle.delete);
     
-// Vehicle routes
+// User routes
 router.route('/users')
     .get(middleware.checkToken, user.index)
     .post(middleware.checkToken, user.new);

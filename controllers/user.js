@@ -30,7 +30,7 @@ exports.new = function (req, res) {
     // save the user and check for errors
     User.create(data)
 		.then(user => {
-			res.json({
+			res.status(201).json({
                 message: 'New user created!',
                 data: user
             });
