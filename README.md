@@ -119,23 +119,23 @@ This API is used to get data Vehicle, Edit, and delete.
   * **Content:** 
     ```javascript
     {
-    "message": "vehicles retrieved successfully",
-    "data": [
-        {
-            "_id": "5c8609a620d09a3f6c5ca7dd",
-            "name": "Ayla 2",
-            "class": "City Car",
-            "manufacture": "Toyota",
-            "production": "2017",
-            "transmission": "Manual",
-            "color": "Black",
-            "description": "description",
-            "updatedAt": "2019-03-11T07:09:26.270Z",
-            "createdAt": "2019-03-11T07:09:26.270Z",
-            "__v": 0
-        }
-    ]
-}
+        "message": "vehicles retrieved successfully",
+        "data": [
+            {
+                "_id": "5c8609a620d09a3f6c5ca7dd",
+                "name": "Ayla 2",
+                "class": "City Car",
+                "manufacture": "Toyota",
+                "production": "2017",
+                "transmission": "Manual",
+                "color": "Black",
+                "description": "description",
+                "updatedAt": "2019-03-11T07:09:26.270Z",
+                "createdAt": "2019-03-11T07:09:26.270Z",
+                "__v": 0
+            }
+        ]
+    }
     ```
  
 * **Error Response:**
@@ -281,8 +281,8 @@ This API is used to get data Vehicle, Edit, and delete.
     {
         "message": "Vehicle Info updated",
         "data": {
-            "_id": "5c872edb64d17010a009b546",
-            name": "All New Ayla",
+          "_id": "5c872edb64d17010a009b546",
+          "name": "All New Ayla",
         	"class": "City Car",
         	"manufacture": "Toyota",
         	"production": "2018",
