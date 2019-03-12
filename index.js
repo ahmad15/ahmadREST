@@ -40,7 +40,8 @@ mongoose.connect(dburi, { useNewUrlParser: true, useFindAndModify: false, useCre
 
 var db = mongoose.connection;
 // Setup server port
-var port = process.env.APP_PORT;
+// var port = process.env.APP_PORT;
+const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
 
 // Send message for default URL
 var appname = process.env.APP_NAME;
