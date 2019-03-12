@@ -73,7 +73,7 @@ exports.update = function (req, res) {
         });
     }
     
-    User.findOneAndUpdate({ _id: req.params.user_id }, data)
+    User.findOneAndUpdate({ _id: req.params.user_id }, data, {new: true})
 		.then(user => {
 			if (!user) {
 				return res.status(404).json({

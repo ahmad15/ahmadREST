@@ -2,33 +2,19 @@
 Vehicle = require('../models/vehicle');
 // Import redis vehicle
 let access = require('../redis/vehicle');
-// const redis = require('redis');
 
 // Handle index actions
 exports.index = function (_req, res) {
-    // Vehicle.get(function (err, vehicles) {
-    //     if (err) {
-    //         res.status(500).json({
-    //             message: err,
-    //         });
-    //     }
-    //     res.json({
-    //         message: "vehicles retrieved successfully",
-    //         data: vehicles
-    //     });
-    // });
-    access.getCached(redisConnect, function(vehicles){
-        if (!vehicles){
+    Vehicle.get(function (err, vehicles) {
+        if (err) {
             res.status(500).json({
-                message: "Empty data"
+                message: err,
             });
         }
-        else {
-            res.json({
-                message: "vehicles retrieved successfully",
-                data: vehicles
-            });
-        }
+        res.json({
+            message: "vehicles retrieved successfully",
+            data: vehicles
+        });
     });
 };
 // Handle create vehicle actions
@@ -51,66 +37,56 @@ exports.new = function (req, res) {
 };
 // Handle view vehicle info
 exports.view = function (req, res) {
-    Vehicle.findById(req.params.vehicle_id)
-		.then(vehicle => {
-            if (!vehicle) {
-				return res.status(404).json({
-                    message: "Vehicle not found"
-                });
-            }
-
-			res.json({
-                message: "vehicles retrieved successfully",
-                data: vehicle
-            });
-		})
-		.catch(err => {
-			res.status(422).json({
+    if (!req.params.vehicle_id) {
+        return res.status(400).json({
+            message: "Please send a proper ID"
+        });
+    }
+    
+    // get data from redis
+    access.getByIDCached(req.params.vehicle_id, function (code, err, vehicle) {
+        if (err) {
+            return res.status(code).json({
                 message: err
             });
-		});
+        }
+        
+        res.json({
+            message: "vehicles retrieved successfully",
+            data: vehicle
+        });
+    });
 };
 // Handle update vehicle info
 exports.update = function (req, res) {
     const data = req.body || {};
-    Vehicle.findOneAndUpdate({ _id: req.params.vehicle_id }, data)
-		.then(vehicle => {
-			if (!vehicle) {
-				return res.status(404).json({
-                    message: "Vehicle not found"
-                });
-            }
-            
-			res.json({
-                message: 'Vehicle Info updated',
-                data: vehicle
-            });
-		})
-		.catch(err => {
-            res.status(422).json({
+
+    // update data vehicle on redis
+    access.updateByIDCached(req.params.vehicle_id, data, function (code, err, vehicle) {
+        if (err) {
+            return res.status(code).json({
                 message: err
             });
-		});
+        }
+        
+        res.json({
+            message: "Vehicle Info updated",
+            data: vehicle
+        });
+    });
 };
 // Handle delete vehicle
 exports.delete = function (req, res) {
-    Vehicle.findOneAndDelete(
-		{ _id: req.params.vehicle_id }
-	)
-    .then(vehicle => {
-        if (!vehicle) {
-            return res.status(404).json({
-                message: "Vehicle not found"
+    // delete data vehicle from redis
+    access.deleteByIDCached(req.params.vehicle_id, function (code, err, _vehicle) {
+        if (err) {
+            return res.status(code).json({
+                message: err
             });
         }
-
+        
         res.status(302).json({
-            message: "Vehicle deleted"
-        });
-    })
-    .catch(err => {
-        res.status(422).json({
-            message: err
+            message: "Vehicle successfully deleted"
         });
     });
 };

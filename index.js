@@ -2,7 +2,6 @@ require('dotenv').config();
 // Import express
 let express = require('express');
 const responseTime = require('response-time');
-const redis = require('redis');
 // Initialize the app
 let app = express();
 // Import Body parser
@@ -13,14 +12,6 @@ let mongoose = require('mongoose');
 // Import routes
 let apiRoutes = require("./api-routes")
 
-
-// create and connect redis client to local instance.
-var redisClient = redis.createClient;
-var redisConnect = redisClient(process.env.REDIS_PORT, process.env.REDIS_HOST);
-// Print redis errors to the console
-redisConnect.on('error', (err) => {
-   console.log("Error " + err);
-});
 
 // use response-time as a middleware
 app.use(responseTime());
