@@ -1,9 +1,10 @@
 require('dotenv').config();
 // Import express
 let express = require('express');
-const responseTime = require('response-time');
+// const responseTime = require('response-time');
 // Initialize the app
 let app = express();
+const cors = require('cors');
 // Import Body parser
 let bodyParser = require('body-parser');
 // Import Mongoose
@@ -14,13 +15,14 @@ let apiRoutes = require("./api-routes")
 
 
 // use response-time as a middleware
-app.use(responseTime());
+// app.use(responseTime());
 
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({
-   extended: true
+   extended: false
 }));
 app.use(bodyParser.json());
+app.use(cors());
 
 // Connect to Mongoose and set connection variable
 var dburi = process.env.DB_URI;
@@ -40,8 +42,7 @@ mongoose.connect(dburi, { useNewUrlParser: true, useFindAndModify: false, useCre
 
 var db = mongoose.connection;
 // Setup server port
-// var port = process.env.APP_PORT;
-const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
+const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : process.env.APP_PORT;
 
 // Send message for default URL
 var appname = process.env.APP_NAME;
