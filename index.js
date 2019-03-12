@@ -23,11 +23,9 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 // Connect to Mongoose and set connection variable
-var dbhost = process.env.DB_HOST;
-var dbport = process.env.DB_PORT;
-var dbname = process.env.DB_NAME;
+var dburi = process.env.DB_URI;
 
-mongoose.connect('mongodb://'+dbhost+':'+dbport+'/'+dbname, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
+mongoose.connect(dburi, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
 
 var db = mongoose.connection;
 // Setup server port
