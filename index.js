@@ -25,7 +25,18 @@ app.use(bodyParser.json());
 // Connect to Mongoose and set connection variable
 var dburi = process.env.DB_URI;
 
-mongoose.connect(dburi, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
+mongoose.connect(dburi, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true }, function (err, db) {
+   if (err) {
+     console.log('Unable to connect to the mongoDB server. Error:', err);
+   } else {
+     console.log('Connection established to', dburi);
+ 
+     // do some work here with the database.
+ 
+     //Close connection
+     db.close();
+   }
+});
 
 var db = mongoose.connection;
 // Setup server port
