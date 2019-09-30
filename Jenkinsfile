@@ -33,9 +33,9 @@ pipeline {
         }
       }
     }
-    stage('Remove Unused docker image') {
+    stage('Running docker image') {
       steps{
-        sh "docker rmi $registry:$GIT_COMMIT"
+        sh "docker run -p 8082:3000 -d $registry:$GIT_COMMIT"
       }
     }
   }
