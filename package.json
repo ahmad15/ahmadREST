@@ -18,7 +18,7 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.0",
-    "mongoose": "^5.4.17",
+    "mongoose": "^5.7.5",
     "mongoose-timestamp": "^0.6.0",
     "redis": "^2.8.0",
     "response-time": "^2.3.2",
