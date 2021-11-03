@@ -22,7 +22,7 @@
     "mongoose-timestamp": "^0.6.0",
     "redis": "^2.8.0",
     "response-time": "^2.3.2",
-    "validator": "^10.11.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {}
 }
